@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Found!</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="hacker-container">
+        <div class="logo">🔓 InstaCrack v3.0</div>
+
+        <div class="success-message">
+            <p><strong>Username:</strong> <span id="username"></span></p>
+            <p><strong>Password:</strong> <span id="password" style="color:#00ff00;"></span></p>
+            <div class="password-glow">🔐</div>
+            <p class="note">⚠️ For entertainment purposes only</p>
+        </div>
+    </div>
+
+    <audio id="success-sound" src="/sounds/success.mp3" autoplay></audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const username = urlParams.get('username') || 'user';
+            const fakePassword = generateFakePassword(username);
+
+            document.getElementById('username').innerText = username;
+            document.getElementById('password').innerText = fakePassword;
+
+            const sound = document.getElementById("success-sound");
+            sound.play().catch(() => {});
+        });
+
+        function generateFakePassword(user) {
+            const chars = "!@#$%^&*";
+            const nums = "0123456789";
+            return user +
+                   nums[Math.floor(Math.random() * nums.length)] +
+                   chars[Math.floor(Math.random() * chars.length)] +
+                   Math.floor(Math.random() * 999);
+        }
+    </script>
+</body>
+</html>
